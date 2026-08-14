@@ -212,6 +212,14 @@ build-ai-feature/
 
 两者可以独立使用。复杂 AI 功能建议先用 `build-ai-feature` 明确业务目标和风险，再用 `evaluate-ai-feature` 建立专项评测证据。
 
+配套评测 Skill 独立发布在 [github.com/jonji886/evaluate-ai-feature](https://github.com/jonji886/evaluate-ai-feature)，安装方式与其 README 一致：
+
+```bash
+git clone https://github.com/jonji886/evaluate-ai-feature.git
+cd evaluate-ai-feature
+python3 scripts/manage_skill.py install --agent codebuddy
+```
+
 ## 当前边界
 
 - 这是工程工作流 Skill，不是某个行业的业务知识库。
