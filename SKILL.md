@@ -11,7 +11,13 @@ description: 从需求到已验证交付，构建或实质性变更一个 AI 产
 
 - 对于构建或变更请求：检视、设计、实现、验证并编写文档。
 - 对于审计或评审请求：检视并报告证据；除非用户要求变更，否则不要改动。
-- 对于纯评估类工作，如有 `$evaluate-ai-feature` 则使用之。
+- 对于纯评估类工作，如宿主已安装 `evaluate-ai-feature`，则切换到该 Skill。
+
+## 保持宿主中立
+
+把本文件作为唯一的工作流事实来源。不要假设某个 Agent 专属的命令、工具名或目录结构；先使用当前宿主实际提供的文件、终端、搜索和测试能力，再按本工作流完成任务。所有相对资源路径都从本 Skill 根目录解析。
+
+只有在安装、迁移或排查发现问题时，才阅读 `references/agent-compatibility.md`。`agents/openai.yaml` 是可选的 OpenAI 展示元数据，不是执行本 Skill 的前提。
 
 ## 执行工作流
 
@@ -19,7 +25,7 @@ description: 从需求到已验证交付，构建或实质性变更一个 AI 产
 
 阅读项目说明以及最小相关集合的需求、架构、决策记录、代码、测试与评估产物。遵守项目的冲突解决顺序。保留用户与本次无关的变更。
 
-进入不熟悉的代码仓库时，运行 `scripts/audit_ai_delivery.py <项目>` 以获得快速的建议性盘点。将其发现视为检视的提示，而非质量证明。
+进入不熟悉的代码仓库时，从本 Skill 根目录运行 `python3 scripts/audit_ai_delivery.py <项目>` 以获得快速的建议性盘点。将其发现视为检视的提示，而非质量证明。
 
 ### 2. 界定产品变更
 
@@ -76,7 +82,7 @@ Tool 返回 requires_human
 
 ### 7. 在决策边界上评估
 
-不要只依赖最终答案的测试。在适用处，将路由、执行、事实、安全、用户结果与系统行为分开评估。如有 `$evaluate-ai-feature`，可用来做完整的评估设计。
+不要只依赖最终答案的测试。在适用处，将路由、执行、事实、安全、用户结果与系统行为分开评估。如宿主已安装 `evaluate-ai-feature`，可用它完成专项评估设计。
 
 至少证明：
 
@@ -114,9 +120,11 @@ Tool 返回 requires_human
 
 ## 可复用资源
 
+- `references/agent-compatibility.md`：跨 Agent 的安装、调用与兼容边界。
 - `references/ai-capability-patterns.md`：选择正确的 AI 能力边界。
 - `references/risk-and-invariants.md`：对风险分类并定义跨层不变量。
 - `references/documentation-and-delivery.md`：同步产品决策与交付证据。
 - `scripts/audit_ai_delivery.py`：盘点常见的交付产物与变更文件覆盖情况。
+- `scripts/manage_skill.py`：安装到常见 Agent，或生成可移植 ZIP 包。
 - `assets/adr-template.md`：极简决策记录模板。
 - `assets/acceptance-criteria-template.md`：可执行的验收标准模板。
